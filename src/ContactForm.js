@@ -57,7 +57,7 @@ const ContactForm = () => {
   return (
     <div>
         <ToastContainer />
-      <form autoComplete='off' onSubmit={handleSubmit}>
+      <form autoComplete='off' onSubmit={handleSubmit} className='form'>
         <label className='tittle'>Name</label>
         <input
           type='text'
