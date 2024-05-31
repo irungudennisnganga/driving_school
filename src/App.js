@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import ContactForm from './ContactForm';
 import Display from './Display';
 import Navbar from './Navbar';
-import EditDataPage from './EditDataPage'; // Import the EditDataPage component
+// import EditDataPage from './EditDataPage'; // Import the EditDataPage component
+import UnderConstruction from './UnderConstruction';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route exact path="/" element={<ContactForm />} />
         <Route path="/display" element={<Display />} />
         {/* Define route for the EditDataPage component */}
-        <Route path="/edit/:rowIndex/:cellIndex/:cellValue" element={<EditDataPage />} />
+        <Route path="/edit" element={<UnderConstruction />} />
       </Routes>
     </div>
   );

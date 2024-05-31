@@ -52,7 +52,7 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="container mx-auto bg-gray-100 rounded-md shadow-md p-8">
+        <div className="container mx-auto mt-12 bg-gray-100 rounded-md shadow-md p-8">
             <ToastContainer />
             <form autoComplete='off' onSubmit={handleSubmit} className='flex flex-col'>
                 <label className='text-gray-700 text-sm font-bold mb-2'>Name</label>
