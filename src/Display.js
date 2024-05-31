@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
+// import { useNavigate } from 'react-router-dom'; // Import useHistory from react-router-dom
 import './Display.css';
 
 const scriptURL = 'https://script.google.com/macros/s/AKfycbx-9zjHDo1_Mll8vQFFi6OtgcB8Hnx_JoF4cvkAPj-OBxd6cGcy378IRjDUpu3HqB6h/exec';
