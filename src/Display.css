@@ -1,0 +1,39 @@
+/* Display.css */
+.container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+    margin-bottom: 20px;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-header {
+    background-color: #f0f0f0;
+  }
+  
+  .table-cell {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .table-row.odd {
+    background-color: #f9f9f9;
+  }
+  
+  .table-row.even {
+    background-color: #fff;
+  }
+  
