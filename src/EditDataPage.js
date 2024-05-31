@@ -1,78 +1,70 @@
-// import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom'; // Import useParams from react-router-dom
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-// const EditDataPage = () => {
-//     const { cellValue } = useParams(); // Get the cellValue from URL parameter
-//     const [existingData, setExistingData] = useState({}); // State for existing data
-//     const [newData, setNewData] = useState({}); // State for new data
+const EditPage = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { rowWithColumnNames } = location.state || {};
 
-//     useEffect(() => {
-//         // Fetch existing data associated with the cellValue
-//         fetchExistingData(cellValue);
-//     }, [cellValue]);
+    const [formData, setFormData] = useState(rowWithColumnNames || {});
 
-//     const fetchExistingData = async (cellValue) => {
-//         try {
-//             // Fetch the existing data associated with the cellValue from your spreadsheet
-//             const response = await fetch(`YOUR_SPREADSHEET_API_URL/${cellValue}`);
-//             const data = await response.json();
-//             // Store the existing data in state
-//             setExistingData(data);
-//             // Populate the new data with existing data
-//             setNewData(data);
-//         } catch (error) {
-//             console.error('Error fetching existing data:', error);
-//         }
-//     };
+    const handleChange = (e, columnName) => {
+        setFormData({
+            ...formData,
+            [columnName]: e.target.value
+        });
+    };
 
-//     const handleInputChange = (e) => {
-//         // Update the new data as the input changes
-//         setNewData({ ...newData, [e.target.name]: e.target.value });
-//     };
+    const handleSave = async () => {
+        try {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbzLalsZNUy1PHNUV3g3crz3IMWM1zhgIg326x1ALpMLcMZ5Pf_DO9TNyRytOZ9YQ3Yf/exec', {
+                method: 'POST', // Using POST since doPost handles both
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            if (!response.ok) {
+                console.log(formData);
+                throw new Error('Network response was not ok');
+            }
+            navigate('/');
+        } catch (error) {
+            console.error('Error during the patch request:', error);
+        }
+    };
 
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         try {
-//             // Make PATCH request to update the data in the spreadsheet
-//             const response = await fetch('YOUR_SPREADSHEET_API_URL', {
-//                 method: 'PATCH',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(newData),
-//             });
-//             // Handle response
-//             console.log('Data updated successfully:', response);
-//             // Optionally, navigate back to the Display page
-//             // history.push('/display');
-//         } catch (error) {
-//             console.error('Error updating data:', error);
-//         }
-//     };
+    if (!rowWithColumnNames) {
+        return <p>No data available to edit.</p>;
+    }
 
-//     return (
-//         <div className="container">
-//             <h1 className="text-3xl font-bold mb-4 text-cyan-300">Edit Data</h1>
-//             <form onSubmit={handleSubmit}>
-//                 {/* Render input fields for each data attribute */}
-//                 {Object.entries(existingData).map(([key, value]) => (
-//                     <div key={key}>
-//                         <label htmlFor={key} className="title">{key}</label>
-//                         <input
-//                             type="text"
-//                             id={key}
-//                             name={key}
-//                             value={newData[key] || value} 
-//                             onChange={handleInputChange}
-//                             className="border px-4 py-2"
-//                         />
-//                         <br /><br />
-//                     </div>
-//                 ))}
-//                 <button type="submit" className="button">Save</button>
-//             </form>
-//         </div>
-//     );
-// };
+    return (
+        <div className="container mt-12">
+            <h1 className="text-3xl font-bold mb-4 text-cyan-300">Edit Data</h1>
+            <form>
+                {Object.entries(formData).map(([columnName, value], index) => (
+                    <div key={index} className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                            {columnName}
+                        </label>
+                        <input
+                            type="text"
+                            value={value}
+                            onChange={(e) => handleChange(e, columnName)}
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                    </div>
+                ))}
+                <button
+                    type="button"
+                    onClick={handleSave}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                    Save
+                </button>
+            </form>
+        </div>
+    );
+};
 
-// export default EditDataPage;
+export default EditPage;
