@@ -8,7 +8,7 @@ const Display = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const history = useNavigate(); // Initialize useHistory hook
+    // const history = useNavigate(); // Initialize useHistory hook
 
     useEffect(() => {
         const fetchData = async () => {
