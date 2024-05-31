@@ -31,12 +31,12 @@ const Display = () => {
         fetchData();
     }, []);
 
-    const handleCellClick = (rowIndex, cellIndex) => {
-        // Get the cell value
-        const cellValue = data[rowIndex][cellIndex];
-        // Navigate to EditDataPage with cellValue as URL parameter
-        history(`/edit/${rowIndex}/${cellIndex}/${cellValue}`);
-    };
+    // const handleCellClick = (rowIndex, cellIndex) => {
+    //     // Get the cell value
+    //     const cellValue = data[rowIndex][cellIndex];
+    //     // Navigate to EditDataPage with cellValue as URL parameter
+    //     history(`/edit/${rowIndex}/${cellIndex}/${cellValue}`);
+    // };
 
     if (loading) {
         return <div>Loading...</div>;
